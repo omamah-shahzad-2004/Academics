@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employees List</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='employees_list.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>  
+<body>  
+    <header>
+        <div class="navbar">
+            <div class="milk">
+                <a href="daily_milk_production.html" class="active"><b>Milk Records</b></a>
+            </div>
+            <div>
+                <a href="cow_records.html"><b>Animal Records</b></a>
+            </div>
+            <div>
+                <a href="milk_sale.html"><b>Milk Sale</b></a>
+            </div>
+            <div>
+                <a href="farm_finance.html"><b>Farm Finance</b></a>
+            </div>
+            <div>
+                <a href="employees_list.html"><b>Employees</b></a>
+            </div>
+            <div>
+                <a href="/logout"><b>Logout</b></a>
+            </div>
+        </div>
+    </header>
+    <div class="main">
+        <div class="leftside">
+            <br>
+            <br>
+            <br>
+            <form action="./search_emp", method="post" class="form0">
+                <pre><input type="text", name="srch", placeholder="Employee Name" class="srch">           <button class="btn" name="search">Search</button></pre>
+            </form>
+            <form action="./emplist_form", method="post" class="form">
+                <br>
+                <br>
+                <pre>Employee Id:          `         <input type="text", name="e_id" class="inp"></pre>
+                <br>
+                <br>
+                <pre>Name:                              <input type="text", name="name" class="inp"></pre>
+                <br>
+                <br>
+                <pre>Basic Salary:                    <input type="text", name="salary" class="inp"></pre>
+                <br>
+                <br>
+                <button class="btn" id="sv">Save</button>
+            </form>
+            <br>
+            <br>
+            <form action="./up_emplist", method="post" class="form1">
+                <pre>Employee Id:          `         <input type="text", name="e_id" class="inp"></pre>
+                <br>
+                <br>
+                <pre>Update Salary by:            <input type="text", name="up_salary" class="inp"></pre>
+                <br>
+                <br>
+                <button class="btn" id="sv">Update</button>
+            </form>
+        </div>
+        <div></div>
+        <div class="rightside">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Employee Id</th>
+                        <th>Employee Name</th>
+                        <th>Employee Salary</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for data in emp_data %}
+                    <tr>
+                        <td>{{ data.employeeID }}</td>
+                        <td>{{ data.employeeName }}</td>
+                        <td>{{ data.salary }}</td>
+                        <td>
+                            <pre>    <a href="/emp_delete/{{data.employeeID}}" class="delete"><i class="fa-solid fa-trash"></i></a></pre>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

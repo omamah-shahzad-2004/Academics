@@ -1,0 +1,99 @@
+* {
+    margin: 0;
+    font-family: Arial;
+    border: border-box;
+}
+
+.navbar {
+    height: 60px;
+    background-color: #082D0F;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.navbar a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.main {
+    display: flex;
+    justify-content: space-evenly;
+    background-color: #DEE5E5;
+}
+
+.leftside {
+    align-items: center;
+}
+
+.rightside {
+    margin-top: 45px;
+}
+
+.form {
+    height: 425.5px;
+}
+
+.btn {
+    border-radius: 40px;
+    height: 30px;
+    width: 105px;
+    border: 2px solid #082D0F;
+    color: #082D0F;
+    transition-duration: 0.4s;
+}
+
+button:hover {
+    background-color: #082D0F;
+    color: #fff;
+}
+
+.inp {
+    height: 25px;
+}
+
+#sv {
+    margin-left: 128px;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    height: 30px;
+    margin-left: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    border-radius: 10px;
+    overflow-y: auto;
+}
+
+th, td {
+    padding: 10px 13px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+td:first-child, th:first-child {
+    border-top-left-radius: 10px;
+}
+
+td:last-child, th:last-child {
+    border-top-right-radius: 10px;
+}
+
+input:hover {
+    border: 2px solid #082D0F;
+}
+
+table:hover {
+    border: 2px solid #082D0F;
+}
+
+td a {
+    color: #082D0F;
+}
+ 
+
+
