@@ -1,0 +1,62 @@
+Q:01) CREATE TABLE CUSTOMERS (
+      	user_id INT,
+	name STRING,
+	age INT,
+	address STRUCT<city:STRING, state:STRING>,
+	purchase_history ARRAY<STRUCT<product_id:INT, product_name:STRING, purchase_amount:FLOAT>>,
+	user_rating MAP<STRING, FLOAT>
+      )
+      STORED AS TEXTFILE;
+     
+      INSERT INTO CUSTOMERS VALUES
+      (1001, 'John', 30, NAMED_STRUCT('city', 'New York', 'state', 'NY'), 
+       ARRAY(NAMED_STRUCT('product_id', 1, 'product_name', 'Laptop', 'purchase_amount', 200.03), 
+             NAMED_STRUCT('product_id', 2, 'product_name', 'Phone', 'purchase_amount', 800.03)), 
+      MAP('Laptop', 4.5, 'Phone', 4.83)),
+      -- And the rest of Data 
+
+Q:02) SELECT name
+      FROM CUSTOMERS
+      LATERAL VIEW EXPLODE(purchase_history) ph AS product
+      WHERE product.purchase_amount > 500;
+
+Q:03) SELECT MAP_KEY AS product_name, MAP_VALUE AS rating
+      FROM CUSTOMERS
+      LATERAL VIEW EXPLODE(user_rating) r AS MAP_KEY, MAP_VALUE
+      WHERE name = 'Jane'
+      ORDER BY rating DESC
+      LIMIT 1;
+
+Q:04) SELECT name
+      FROM CUSTOMERS
+      WHERE user_rating['Phone'] >= 4.5;
+
+Q:05) SELECT name, SUM(product.purchase_amount) AS total_spent
+      FROM CUSTOMERS
+      LATERAL VIEW EXPLODE(purchase_history) ph AS product
+      GROUP BY name;
+
+Q:06) SELECT name, address.city
+      FROM CUSTOMERS
+      WHERE address.state = 'NY';
+
+Q:07) SELECT name, product.product_name, MAX(product.purchase_amount) AS max_purchase
+      FROM CUSTOMERS
+      LATERAL VIEW EXPLODE(purchase_history) ph AS product
+      GROUP BY name, product_name;
+
+Q:08) SELECT address.state, COUNT(DISTINCT user_id) AS user_count
+      FROM CUSTOMERS
+      LATERAL VIEW EXPLODE(purchase_history) ph AS product
+      WHERE product.product_name = 'Tablet'
+      GROUP BY address.state;
+
+Q:09) SELECT name, SIZE(purchase_history) AS product_count
+      FROM CUSTOMERS;
+
+Q:10) SELECT product.product_name, COUNT(*) AS purchase_count
+      FROM CUSTOMERS
+      LATERAL VIEW EXPLODE(purchase_history) ph AS product
+      GROUP BY product.product_name
+      ORDER BY purchase_count DESC
+      LIMIT 3;
